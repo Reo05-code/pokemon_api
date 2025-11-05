@@ -1,0 +1,26 @@
+<h1>Pokemon</h1>
+<%= render "shared/search", { path: new_pokemon_path } %>
+<div>
+  <% if @response.present? %>
+  <%= render "shared/error_messages", { object: @pokemon } %>
+    <table>
+      <tr>
+        <td>No.</td>
+        <td><%= @response["id"] %></td>
+      </tr>
+      <tr>
+        <td>Name:</td>
+        <td><%= @response["name"] %></td>
+      </tr>
+    </table>
+    <%= image_tag(@response["sprites"]["front_default"], size: "200") %>
+    <%= form_with model: @pokemon, local: true do |f| %>
+      <%= f.hidden_field :order  %>
+      <%= f.hidden_field :name %>
+      <%= f.hidden_field :image_url %>
+      <%= f.submit 'ゲット', name: nil %>
+    <% end %>
+  <% else %>
+    <p>検索してね！</p>
+  <% end %>
+</div>
